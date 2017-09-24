@@ -16,17 +16,17 @@ case class CronTab(
 
   //TODO: improve prettify method
   override def toString: String = {
-    val itemsString: List[String] = for (item <- cronTabItems)
+    val stringifiedItems: List[String] = for (item <- cronTabItems)
      yield s"${item.itemType}: ${item.cronValues}"
 
-    itemsString + s" Command: ${command}"
+    stringifiedItems + s" Command: ${command}"
   }
 }
 
 object CronTabItem {
   def apply(itemType: String, expr: String): CronTabItem = {
     val itemValues = new ItemParser(expr).parse(itemType)
-    // Prettify the type
+    // Prettify type
     val typeName = config.Constants.info(itemType)("name").toString
 
     CronTabItem(typeName,itemValues)

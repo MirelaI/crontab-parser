@@ -1,5 +1,7 @@
 package com.crontab
 
+case object CronTypeNotFound extends Exception
+
 class ItemParser(val expr: String) {
 
   def parse(elemType: String): List[Int] = {
@@ -26,7 +28,7 @@ class ItemParser(val expr: String) {
             elem.contains("*") match {
               case true =>
                 // Get min and max values from config:
-                val info: Map[String, Any] = config.Constants.info(elemType)
+                val info: Map[String, Any] = typeInfoFromConfig(elemType)
                 val minValue = info("minValue").toString.toInt
                 val maxValue = info("maxValue").toString.toInt
 
@@ -46,4 +48,15 @@ class ItemParser(val expr: String) {
       case None => flattenValues
     }
   }
+
+  private def typeInfoFromConfig(crontItemType: String): Map[String, Any] = {
+    val info: Option[Map[String, Any]] = config.Constants.info.get(crontItemType)
+
+    info match {
+      case Some(typeInfo) => typeInfo
+      case None => throw CronTypeNotFound
+    }
+  }
 }
+
+
