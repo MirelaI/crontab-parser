@@ -1,8 +1,8 @@
 package com.crontab.config
 
 object Constants {
-  private val weekDays = Seq("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT")
-  private val months = Seq(
+  private val weekDays = List("SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT")
+  private val months = List(
     "JAN", "FEB", "MAR", "APR", "IUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
   )
 

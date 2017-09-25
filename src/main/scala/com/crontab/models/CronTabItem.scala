@@ -25,11 +25,10 @@ case class CronTab(
 
 object CronTabItem {
   def apply(itemType: String, expr: String): CronTabItem = {
-    val itemValues = new ItemParser(expr).parse(itemType)
+    val itemValues = new ItemParser(expr, itemType).parse
     // Prettify type
     val typeName = config.Constants.info(itemType)("name").toString
 
     CronTabItem(typeName,itemValues)
   }
 }
-

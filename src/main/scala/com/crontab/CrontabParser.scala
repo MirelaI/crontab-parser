@@ -13,6 +13,8 @@ import com.crontab.models.{CronTab, CronTabItem}
 // day of week 1 2 3 4 5
 // command /usr/bin/find
 
+object InvalidCrontabInput extends Exception
+
 object CrontabParser {
 
   // We need a way to enforce the order on the
@@ -27,13 +29,17 @@ object CrontabParser {
     5 -> "cmd"
   )
 
- def parseCronTabCommand(input: String): CronTab = {
+  def parseCronTabCommand(input: String): CronTab = {
     val cronTabInput = input.split(" ").zipWithIndex.toList
 
-    val parsedCrontTab: List[CronTabItem] = for (
+    val parsedCronTab: List[CronTabItem] = for (
       (item, index) <- cronTabInput if index != 5
     ) yield CronTabItem(itemType = cronTabOrder(index), expr = item)
 
-    CronTab(parsedCrontTab, cronTabInput.last._1)
+    if (parsedCronTab.length == 5)
+     CronTab(parsedCronTab, cronTabInput.last._1)
+    else {
+      throw InvalidCrontabInput
+    }
   }
 }
