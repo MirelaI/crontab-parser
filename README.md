@@ -51,8 +51,6 @@ commands:
 
 ## To fix
 
-- improve toString method that displays the output to be more user friendly as 
-is too scalaish
 - validation on ranges for lower and upper bound on integer values and also on 
 literals
 - refactor ```parse()``` method from the ItemParser class
