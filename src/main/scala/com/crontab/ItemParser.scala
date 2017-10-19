@@ -77,7 +77,7 @@ class ItemParser(val expr: String, elemType: String) {
       else throw ElementNotRecognised(s"Element ${elem} not recognised")
 
       listedValues match {
-        case s: List[Any] => s.indexOf(elem)
+        case s: List[Any] => s.indexOf(elem.toUpperCase)
         case _ => throw UndefinedValuesForCrontabType(
           s"""
              |Values of type ${cronConfig} should be a List

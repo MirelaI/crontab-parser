@@ -33,11 +33,11 @@ object CrontabParser {
     val cronTabInput = input.split(" ").zipWithIndex.toList
 
     val parsedCronTab: List[CronTabItem] = for (
-      (item, index) <- cronTabInput if index != 5
+      (item, index) <- cronTabInput if index < 5
     ) yield CronTabItem(itemType = cronTabOrder(index), expr = item)
 
-    if (parsedCronTab.length == 5)
-     CronTab(parsedCronTab, cronTabInput.last._1)
+    if (parsedCronTab.length >= 5)
+     CronTab(parsedCronTab, cronTabInput.drop(5).map{ _._1 }.mkString(" "))
     else {
       throw InvalidCrontabInput
     }
